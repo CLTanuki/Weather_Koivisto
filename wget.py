@@ -9,15 +9,6 @@ localtime = time.localtime()
 date = time.strftime("%Y %m", localtime)
 
 
-def dtrt(text):
-    i = str(text).find('b>') + 2
-    returnAngie = str(text)[i:str(text).find("</s", i)]
-    rV = returnAngie.replace('<span class="time">', " ")
-    rV = rV.replace("</b>", " ")
-    rV = rV.replace("  ", ",")
-    return rV
-
-
 def tprt(text):
     i = str(text).find(':') + 2
     returnAngie = str(text)[i:str(text).find("</l", i)]
