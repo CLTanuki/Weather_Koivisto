@@ -3,6 +3,10 @@ __author__ = 'CLTanuki'
 
 import urllib
 import BeautifulSoup
+import time
+
+localtime = time.localtime()
+date = time.strftime("%Y %m", localtime)
 
 
 def dtrt(text):
@@ -47,7 +51,8 @@ def main():
     target = soup.findAll('div', attrs={'class': "operational-information"})
     del target[0]
     for one in target:
-        dt = one.find('div', attrs={'class': "date-time"})
+        dt_div = one.find('div', attrs={'class': "date-time"})
+        dt = date + ' ' + dt_div.b.string + ' ' + dt_div.span.string
         temp = one.find('li', attrs={'class': "temperature"})
         pressure = one.find('li', attrs={'class': "pressure"})
         stuff = one.findAll('li')
@@ -56,8 +61,7 @@ def main():
         avs = stuff[4]
         ms = stuff[5]
         wl = stuff[6]
-        print dtrt(dt) + ',' + tprt(temp) + ',' + prt(srt(pressure).replace('мм.рт.ст.', '')) + ',' + srt(str(humidity).replace('%', '')) + ',' + srt(str(wd).replace(' гр.', '')) + ',' + srt(str(avs).replace(' м/с', '')) + ',' + srt(str(ms).replace(' м/с', '')) + ',' + srt(str(wl).replace(' cм', ''))
-
+        print dt + ',' + tprt(temp) + ',' + prt(srt(pressure).replace('мм.рт.ст.', '')) + ',' + srt(str(humidity).replace('%', '')) + ',' + srt(str(wd).replace(' гр.', '')) + ',' + srt(str(avs).replace(' м/с', '')) + ',' + srt(str(ms).replace(' м/с', '')) + ',' + srt(str(wl).replace(' cм', ''))
 
 
 main()
